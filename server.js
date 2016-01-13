@@ -26,23 +26,29 @@ app.oauth = oauthserver({
 // Handle token grant requests
 app.all('/oauth/token', app.oauth.grant());
 
-app.get('/secret', app.oauth.authorise(), function (req, res) {
-  // Will require a valid access_token
-  res.send('Secret area');
-});
+app.route('/oauth/verify', app.oauth.authorise())
+  .get(function (req, res) {
+    res.send('Valid token');
+  })
+  .post(function (req, res) {
+    res.send('Valid token');
+  });
 
-app.post('/secret', app.oauth.authorise(), function (req, res) {
-  // Will require a valid access_token
-  res.send('Secret area');
-});
+app.route('/oauth/info', app.oauth.authorise())
+  .get(function (req, res) {
+    res.send('Decoded token information');
+  })
+  .post(function (req, res) {
+    res.send('Decoded token information');
+  });
 
-app.get('/public', function (req, res) {
-  res.send('Public area');
-});
-
-app.post('/public', function (req, res) {
-  res.send('Public area');
-});
+app.route('/public')
+  .get(function (req, res) {
+    res.send('Public area');
+  })
+  .post(function (req, res) {
+    res.send('Public area');
+  });
 
 app.get('/', function (req, res) {
   // Does not require an access_token
