@@ -11,16 +11,16 @@ var oauthAccessTokens = [],
   ],
   authorizedClientIds = {
     password: [
-      'clientId'
+      'client'
     ],
     refresh_token: [
-      'clientId'
+      'client'
     ]
   },
   users = [
     {
       id : '1',
-      username: 'clientId',
+      username: 'client',
       password: 'password'
     }
   ];
