@@ -26,19 +26,19 @@ app.oauth = oauthserver({
 // Handle token grant requests
 app.all('/oauth/token', app.oauth.grant());
 
-app.route('/oauth/verify', app.oauth.authorise())
-  .get(function (req, res) {
+app.route('/oauth/verify')
+  .get(app.oauth.authorise(), function (req, res) {
     res.send('Valid token');
   })
-  .post(function (req, res) {
+  .post(app.oauth.authorise(), function (req, res) {
     res.send('Valid token');
   });
 
-app.route('/oauth/info', app.oauth.authorise())
-  .get(function (req, res) {
+app.route('/oauth/info')
+  .get(app.oauth.authorise(), function (req, res) {
     res.send('Decoded token information');
   })
-  .post(function (req, res) {
+  .post(app.oauth.authorise(), function (req, res) {
     res.send('Decoded token information');
   });
 
