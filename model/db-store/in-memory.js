@@ -22,15 +22,27 @@ model.dump = function() {
  * Optional
  */
 model.generateToken = function (type, req, callback) {
+
+  var username = req.body.username;
+  var password = req.body.password;
+  var refresh_token = req.body.refresh_token;
+
+  if (refresh_token) {
+    var decoded = jwt.decode(refresh_token, {complete: true});
+
+    username = decoded.payload.username;
+    password = decoded.payload.password;
+  }
+
   var token = jwt.sign(
   { 
-    username: req.body.username,
-    admin: true 
+    username: username
   }, 
-  req.body.password,
+  'private.key',
   {
-    headers: {customHeader:'customHeader'}
+    headers: {type:type}
   });
+
   callback(false, token);
 };
 

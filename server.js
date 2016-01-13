@@ -16,8 +16,8 @@ app.use(bodyParser.json());
 
 app.oauth = oauthserver({
   model: memorystore,
-  accessTokenLifetime: 60,
-  refreshTokenLifetime: 60,
+  accessTokenLifetime: 600,
+  refreshTokenLifetime: 600,
   authCodeLifetime: 30,
   grants: ['password','refresh_token'],
   debug: true
@@ -55,9 +55,9 @@ app.get('/session', routes.session.show);
 // Error handling
 app.use(app.oauth.errorHandler());
 
-app.listen(process.env.PORT || 3000, ip.address() || 'localhost', function() {
-  var host = ip.address() || 'localhost';
-  var port = process.env.PORT || 3000;
+var port = process.env.PORT || 3001;
+var host = ip.address() || 'localhost';
 
+app.listen(port, host, function() {
   console.log('Oauth2 server listening at http://%s:%s', host, port);
 });
