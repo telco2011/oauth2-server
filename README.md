@@ -4,6 +4,8 @@ Simple oauth2 server to obtain and validate access and refresh token.
 	npm install
 ## Start server
 	npm start
+## Token Information
+The token generated is a [JWT](https://jwt.io/).
 ## Obtain Access and Refresh Token
 ### Password Grant Type
 To obtain a token you should POST to /oauth/token. You should include your client credentials in the Authorization header ("Basic " + client_id:client_secret base64'd), and then grant_type ("password"), username and password in the request body, for example:
@@ -80,4 +82,23 @@ Also, you can use GET to verify the access_token, for example:
 - **Request Example**
 
 	GET /oauth/verify?access_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsInR5cGUiOiJhY2Nlc3NUb2tlbiJ9.eyJ1c2VybmFtZSI6InVzZXIiLCJpYXQiOjE0NTI3NjQzMjd9.24Qj7UyfPknPMfzvChXuul1tse91on64mWIJaDmvP2k HTTP/1.1
+	Host: [OAUTH2_SERVER_URL]
+
+## Decode Access Token
+To decode access token information you should POST to /oauth/info with the access_token in the body, for example:
+
+- **Request Example**
+
+	POST /oauth/info HTTP/1.1
+	Host: [OAUTH2_SERVER_URL]
+	Content-Type: application/x-www-form-urlencoded
+
+	BODY
+	access_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsInR5cGUiOiJhY2Nlc3NUb2tlbiJ9.eyJ1c2VybmFtZSI6InVzZXIiLCJpYXQiOjE0NTI3NzM5MjB9.dXW3qcJspS3Ai6F43laNOsI14kcI3kGAArFyXru5Io4
+
+Also, you can use GET to decode the access_token, for example:
+
+- **Request Example**
+
+	GET /oauth/info?access_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsInR5cGUiOiJhY2Nlc3NUb2tlbiJ9.eyJ1c2VybmFtZSI6InVzZXIiLCJpYXQiOjE0NTI3NzM5MjB9.dXW3qcJspS3Ai6F43laNOsI14kcI3kGAArFyXru5Io4 HTTP/1.1
 	Host: [OAUTH2_SERVER_URL]
