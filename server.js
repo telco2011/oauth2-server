@@ -61,7 +61,7 @@ app.get('/session', routes.session.show);
 // Error handling
 app.use(app.oauth.errorHandler());
 
-var port = process.env.PORT || 3001;
+var port = process.env.PORT || 3000;
 var host = ip.address() || 'localhost';
 
 app.listen(port, host, function() {
