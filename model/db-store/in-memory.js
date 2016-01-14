@@ -72,7 +72,6 @@ model.getClient = function (clientId, clientSecret, callback) {
 };
 
 model.grantTypeAllowed = function (clientId, grantType, callback) {
-  console.log(grantType);
   callback(false, authorizedClientIds[grantType] &&
     authorizedClientIds[grantType].indexOf(clientId.toLowerCase()) >= 0);
 };

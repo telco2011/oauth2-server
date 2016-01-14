@@ -27,20 +27,12 @@ app.oauth = oauthserver({
 app.all('/oauth/token', app.oauth.grant());
 
 app.route('/oauth/verify')
-  .get(app.oauth.authorise(), function (req, res) {
-    res.send('Valid token');
-  })
-  .post(app.oauth.authorise(), function (req, res) {
-    res.send('Valid token');
-  });
+  .get(app.oauth.authorise(), routes.verify.token)
+  .post(app.oauth.authorise(), routes.verify.token);
 
 app.route('/oauth/info')
-  .get(app.oauth.authorise(), function (req, res) {
-    res.send('Decoded token information');
-  })
-  .post(app.oauth.authorise(), function (req, res) {
-    res.send('Decoded token information');
-  });
+  .get(app.oauth.authorise(), routes.decode.token)
+  .post(app.oauth.authorise(), routes.decode.token);
 
 app.route('/public')
   .get(function (req, res) {
@@ -61,7 +53,7 @@ app.get('/session', routes.session.show);
 // Error handling
 app.use(app.oauth.errorHandler());
 
-var port = process.env.PORT || 3001;
+var port = process.env.PORT || 3000;
 var host = ip.address() || 'localhost';
 
 app.listen(port, host, function() {
