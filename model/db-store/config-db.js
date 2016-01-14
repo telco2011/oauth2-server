@@ -4,7 +4,6 @@ var oauthAccessTokens = [],
   oauthClients = [
     {
       clientId : 'clientid',
-      //ClientSecret=ClientSecret
       clientSecret : 'clientsecret',
       redirectUri : ''
     }
