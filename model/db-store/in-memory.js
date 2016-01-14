@@ -1,6 +1,7 @@
 var model = module.exports;
 var jwt = require('jsonwebtoken');
 var db = require('./config-db');
+var fs = require('fs');
 
 // In-memory datastores:
 var oauthAccessTokens = db.oauthAccessTokens;
@@ -26,22 +27,35 @@ model.generateToken = function (type, req, callback) {
   var username = req.body.username;
   var password = req.body.password;
   var refresh_token = req.body.refresh_token;
+  var token;
+  var algorithm = 'RS256';
+
+  var privateKey = fs.readFileSync('./private/server.key');
+  var cert = fs.readFileSync('./private/hostname.pem');
+  var options = { 
+    'algorithm': algorithm,
+    'headers': {
+      'alg'       : algorithm, 
+      'typ'       : 'JWT',
+      'jwtid'     : 'In-memory-' + type,
+      'expiresIn' : 60
+    }
+  };
 
   if (refresh_token) {
-    var decoded = jwt.decode(refresh_token, {complete: true});
-
-    username = decoded.payload.username;
-    password = decoded.payload.password;
+    var decoded = jwt.verify(refresh_token, cert, { algorithm: ['RS256'] }, function(err, decoded) {
+      if (err) {
+        var code = 401,
+        error = "invalid_token",
+        error_description = err.message;
+        console.log(err);
+      }
+    });
+    console.log('DECODED: ' + decoded);
+    username = decoded.username;
   }
 
-  var token = jwt.sign(
-  { 
-    username: username
-  }, 
-  'private.key',
-  {
-    headers: {type:type}
-  });
+  token = jwt.sign({ 'username' : username }, privateKey, options);
 
   callback(false, token);
 };

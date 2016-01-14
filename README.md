@@ -102,3 +102,7 @@ Also, you can use GET to decode the access_token, for example:
 
 	GET /oauth/info?access_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsInR5cGUiOiJhY2Nlc3NUb2tlbiJ9.eyJ1c2VybmFtZSI6InVzZXIiLCJpYXQiOjE0NTI3NzM5MjB9.dXW3qcJspS3Ai6F43laNOsI14kcI3kGAArFyXru5Io4 HTTP/1.1
 	Host: [OAUTH2_SERVER_URL]
+
+Generate your own certificate
+http://www.akadia.com/services/ssh_test_certificate.html
+https://gist.github.com/stevenhaddox/1501893

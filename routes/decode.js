@@ -1,10 +1,13 @@
 var jwt = require('jsonwebtoken');
+var fs = require('fs');
 
 module.exports.token = function(req, res, next) {
 
   var token = req.query.access_token || req.body.access_token;
 
-  var decoded = jwt.verify(token, 'private.key', function(err, decoded) {
+  var cert = fs.readFileSync('./private/hostname.pem');
+
+  var decoded = jwt.verify(token, cert, { algorithm: ['RS256'] }, function(err, decoded) {
   	if (err) {
   	  var code = 401,
   		error = "invalid_token",
