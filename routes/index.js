@@ -3,4 +3,6 @@ exports.index = function(req, res){
 };
 
 exports.session = require('./session');
+exports.verify = require('./verify');
+exports.decode = require('./decode');
 //exports.users = require('./users');
