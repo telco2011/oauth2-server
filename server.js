@@ -16,8 +16,8 @@ app.use(bodyParser.json());
 
 app.oauth = oauthserver({
   model: memorystore,
-  accessTokenLifetime: 60,
-  refreshTokenLifetime: 60,
+  accessTokenLifetime: 600,
+  refreshTokenLifetime: 600,
   authCodeLifetime: 30,
   grants: ['password','refresh_token'],
   debug: true
@@ -26,23 +26,29 @@ app.oauth = oauthserver({
 // Handle token grant requests
 app.all('/oauth/token', app.oauth.grant());
 
-app.get('/secret', app.oauth.authorise(), function (req, res) {
-  // Will require a valid access_token
-  res.send('Secret area');
-});
+app.route('/oauth/verify')
+  .get(app.oauth.authorise(), function (req, res) {
+    res.send('Valid token');
+  })
+  .post(app.oauth.authorise(), function (req, res) {
+    res.send('Valid token');
+  });
 
-app.post('/secret', app.oauth.authorise(), function (req, res) {
-  // Will require a valid access_token
-  res.send('Secret area');
-});
+app.route('/oauth/info')
+  .get(app.oauth.authorise(), function (req, res) {
+    res.send('Decoded token information');
+  })
+  .post(app.oauth.authorise(), function (req, res) {
+    res.send('Decoded token information');
+  });
 
-app.get('/public', function (req, res) {
-  res.send('Public area');
-});
-
-app.post('/public', function (req, res) {
-  res.send('Public area');
-});
+app.route('/public')
+  .get(function (req, res) {
+    res.send('Public area');
+  })
+  .post(function (req, res) {
+    res.send('Public area');
+  });
 
 app.get('/', function (req, res) {
   // Does not require an access_token
@@ -55,9 +61,9 @@ app.get('/session', routes.session.show);
 // Error handling
 app.use(app.oauth.errorHandler());
 
-app.listen(process.env.PORT || 3000, ip.address() || 'localhost', function() {
-  var host = ip.address() || 'localhost';
-  var port = process.env.PORT || 3000;
+var port = process.env.PORT || 3001;
+var host = ip.address() || 'localhost';
 
+app.listen(port, host, function() {
   console.log('Oauth2 server listening at http://%s:%s', host, port);
 });
