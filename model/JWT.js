@@ -16,7 +16,7 @@ module.exports.generateJWT = function (type, req) {
   var algorithm = 'RS256';
   var notBeforeDate = moment().format('YYYY-MM-DD HH:mm:ss');
   var expiredDate = moment(notBeforeDate, DateTimeFormat).add({months:0,days:0,hours:0,minutes:0,seconds:5,milliseconds:0});
-  console.log(expiredDate.format("dddd, MMMM Do YYYY, HH:mm:ss.SSS").valueOf());
+  //console.log(expiredDate.format("dddd, MMMM Do YYYY, HH:mm:ss.SSS").valueOf());
 
   var privateKey = getPrivateKey();
 
