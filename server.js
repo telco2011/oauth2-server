@@ -23,7 +23,6 @@ app.oauth = oauthserver({
   debug: true
 });
 
-// Handle token grant requests
 app.all('/oauth/token', app.oauth.grant());
 
 app.route('/oauth/verify')
@@ -43,7 +42,6 @@ app.route('/public')
   });
 
 app.get('/', function (req, res) {
-  // Does not require an access_token
   res.render('index', { title: 'Oauth2 Example'});
 });
 
@@ -54,8 +52,10 @@ app.get('/session', routes.session.show);
 app.use(app.oauth.errorHandler());
 
 var port = process.env.PORT || 3000;
-var host = ip.address() || 'localhost';
+var host = process.env.HOSTNAME || ip.address() || 'localhost';
 
 app.listen(port, host, function() {
   console.log('Oauth2 server listening at http://%s:%s', host, port);
 });
+
+module.exports = app;

@@ -35,7 +35,7 @@ model.generateToken = function (type, req, callback) {
   try {
     privateKey = fs.readFileSync('./private/server.key');
   } catch(err) {
-    console.warn('Not server.key founded. Use default.');
+    console.warn('No server.key founded. Use default.');
   }
 
   var cert = 'private.key';
@@ -52,7 +52,7 @@ model.generateToken = function (type, req, callback) {
       }
     };
   } catch(err) {
-    console.warn('Not hostname.pem founded. Use default.');
+    console.warn('No hostname.pem founded. Use default.');
   }
 
   if (refresh_token) {

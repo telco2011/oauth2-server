@@ -9,7 +9,7 @@ module.exports.token = function(req, res, next) {
   try {
     cert = fs.readFileSync('./private/hostname.pem');
   } catch(err) {
-    console.warn('Not hostname.pem founded. Use default.');
+    console.warn('No hostname.pem founded. Use default.');
   }
 
   var decoded = jwt.verify(token, cert, { algorithm: ['RS256'] }, function(err, decoded) {
