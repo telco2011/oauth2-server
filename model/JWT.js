@@ -15,7 +15,7 @@ module.exports.generateJWT = function (type, req) {
   var token;
   var algorithm = 'RS256';
   var notBeforeDate = '2016-01-01 13:00:00';
-  var expiredDate = '2016-01-15 14:40:00';
+  var expiredDate = '2016-01-15 15:40:00';
 
   var privateKey = getPrivateKey();
 
@@ -45,12 +45,16 @@ module.exports.generateJWT = function (type, req) {
   var notBefore = getDateTime(notBeforeDate);
   var expired   = getDateTime(expiredDate);
 
-  token = jwt.sign({ 
-    'username' : username,
-    'jti'      : uuid.v4(),
-    'nbf'      : notBefore,
-    'exp'      : expired
-  }, privateKey, options);
+  if(privateKey === 'private.key') {
+  	token = jwt.sign({ 'username' : username }, privateKey);
+  } else {
+  	token = jwt.sign({ 
+	    'username' : username,
+	    'jti'      : uuid.v4(),
+	    'nbf'      : notBefore,
+	    'exp'      : expired
+	  }, privateKey, options);
+  }
 
   return token;
 };
@@ -61,10 +65,11 @@ var getDateTime = function (value) {
 
 var getPrivateKey = function () {
 
-  var privateKey = 'private.key';
+  var privateKey;
   try {
     privateKey = fs.readFileSync('./private/server.key');
   } catch(err) {
+  	privateKey = 'private.key';
     console.warn('No key founded. Use default.');
   }
 
@@ -74,10 +79,11 @@ var getPrivateKey = function () {
 
 var getCert = function () {
 
-  var cert = 'private.key';
+  var cert;
   try {
     cert = fs.readFileSync('./private/hostname.pem');
   } catch(err) {
+  	cert = 'private.key'
     console.warn('No pem founded. Use default.');
   }
 
