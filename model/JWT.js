@@ -14,8 +14,9 @@ module.exports.generateJWT = function (type, req) {
   var refresh_token = req.body.refresh_token;
   var token;
   var algorithm = 'RS256';
-  var notBeforeDate = '2016-01-01 13:00:00';
-  var expiredDate = '2016-01-15 15:40:00';
+  var notBeforeDate = moment().format('YYYY-MM-DD HH:mm:ss');
+  var expiredDate = moment(notBeforeDate, DateTimeFormat).add({months:0,days:0,hours:0,minutes:0,seconds:5,milliseconds:0});
+  console.log(expiredDate.format("dddd, MMMM Do YYYY, HH:mm:ss.SSS").valueOf());
 
   var privateKey = getPrivateKey();
 
@@ -27,7 +28,7 @@ module.exports.generateJWT = function (type, req) {
       
       var decoded = jwt.verify(refresh_token, 
       	cert, 
-      	{ algorithm: ['HS256', 'HS384', 'HS512', 'RS256', 'RS384', 'RS512', 'ES256', 'ES384', 'ES512'], 
+      	{ 'algorithm': ['HS256', 'HS384', 'HS512', 'RS256', 'RS384', 'RS512', 'ES256', 'ES384', 'ES512'], 
       	ignoreExpiration : false });
 
       username = decoded.username;
@@ -38,14 +39,11 @@ module.exports.generateJWT = function (type, req) {
 
   }
 
-  var options = {
-    'algorithm' : algorithm
-  };
-
   var notBefore = getDateTime(notBeforeDate);
   var expired   = getDateTime(expiredDate);
 
   if(privateKey === 'private.key') {
+  	console.warn('Use String private key to sign');
   	token = jwt.sign({ 'username' : username }, privateKey);
   } else {
   	token = jwt.sign({ 
@@ -53,7 +51,7 @@ module.exports.generateJWT = function (type, req) {
 	    'jti'      : uuid.v4(),
 	    'nbf'      : notBefore,
 	    'exp'      : expired
-	  }, privateKey, options);
+	  }, privateKey, { 'algorithm' : algorithm });
   }
 
   return token;

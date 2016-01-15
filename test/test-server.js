@@ -109,4 +109,26 @@ describe('Oauth2 Server Tests', function() {
 	      done();
 	    });
 	});
+
+  it('should verify token (token JWT expired) /oauth/verify POST', function(done) {
+  	this.timeout(30000);
+  	setTimeout(function () {
+		  chai.request(server)
+		    .post('/oauth/verify')
+		    .set('Content-Type', 'application/x-www-form-urlencoded')
+		    .send({ 'access_token' : access_token })
+		    .end(function(err, res){
+		      res.should.have.status(401);
+		      res.should.be.json;
+		      res.body.should.be.a('object');
+	      	  res.body.should.have.property('code');
+	      	  res.body.code.should.equal(401);
+	      	  res.body.should.have.property('error');
+	      	  res.body.error.should.equal('invalid_token');
+	      	  res.body.should.have.property('error_description');
+	      	  res.body.error_description.should.equal('jwt expired');
+		      done();
+		    });
+		}, 10000);
+	});
 });
