@@ -31,17 +31,29 @@ model.generateToken = function (type, req, callback) {
   var token;
   var algorithm = 'RS256';
 
-  var privateKey = fs.readFileSync('./private/server.key');
-  var cert = fs.readFileSync('./private/hostname.pem');
-  var options = { 
-    'algorithm': algorithm,
-    'headers': {
-      'alg'       : algorithm, 
-      'typ'       : 'JWT',
-      'jwtid'     : 'In-memory-' + type,
-      'expiresIn' : 60
-    }
-  };
+  var privateKey = 'private.key';
+  try {
+    privateKey = fs.readFileSync('./private/server.key');
+  } catch(err) {
+    console.warn('Not server.key founded. Use default.');
+  }
+
+  var cert = 'private.key';
+  var options;
+  try {
+    cert = fs.readFileSync('./private/hostname.pem');
+    options = { 
+      'algorithm': algorithm,
+      'headers': {
+        'alg'       : algorithm, 
+        'typ'       : 'JWT',
+        'jwtid'     : 'In-memory-' + type,
+        'expiresIn' : 60
+      }
+    };
+  } catch(err) {
+    console.warn('Not hostname.pem founded. Use default.');
+  }
 
   if (refresh_token) {
 
@@ -51,7 +63,7 @@ model.generateToken = function (type, req, callback) {
     } catch(err) {
       throw error('invalid_token', err.message, err);
     }
-    
+
   }
 
   token = jwt.sign({ 'username' : username }, privateKey, options);

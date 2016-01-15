@@ -5,7 +5,12 @@ module.exports.token = function(req, res, next) {
 
   var token = req.query.access_token || req.body.access_token;
 
-  var cert = fs.readFileSync('./private/hostname.pem');
+  var cert = 'private.key';
+  try {
+    cert = fs.readFileSync('./private/hostname.pem');
+  } catch(err) {
+    console.warn('Not hostname.pem founded. Use default.');
+  }
 
   var decoded = jwt.verify(token, cert, { algorithm: ['RS256'] }, function(err, decoded) {
   	if (err) {
