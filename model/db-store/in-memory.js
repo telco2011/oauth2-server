@@ -58,7 +58,7 @@ model.generateToken = function (type, req, callback) {
   if (refresh_token) {
 
     try {
-      var decoded = jwt.verify(refresh_token, 'cert', { algorithm: ['RS256'] });
+      var decoded = jwt.verify(refresh_token, cert, { algorithm: ['RS256'] });
       username = decoded.username;
     } catch(err) {
       throw error('invalid_token', err.message, err);
