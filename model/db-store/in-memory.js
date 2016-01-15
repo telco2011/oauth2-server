@@ -1,5 +1,6 @@
 var model = module.exports;
 var jwt = require('jsonwebtoken');
+var error = require('../../node_modules/oauth2-server/lib/error');
 var db = require('./config-db');
 var fs = require('fs');
 
@@ -43,16 +44,14 @@ model.generateToken = function (type, req, callback) {
   };
 
   if (refresh_token) {
-    var decoded = jwt.verify(refresh_token, cert, { algorithm: ['RS256'] }, function(err, decoded) {
-      if (err) {
-        var code = 401,
-        error = "invalid_token",
-        error_description = err.message;
-        console.log(err);
-      }
-    });
-    console.log('DECODED: ' + decoded);
-    username = decoded.username;
+
+    try {
+      var decoded = jwt.verify(refresh_token, 'cert', { algorithm: ['RS256'] });
+      username = decoded.username;
+    } catch(err) {
+      throw error('invalid_token', err.message, err);
+    }
+    
   }
 
   token = jwt.sign({ 'username' : username }, privateKey, options);

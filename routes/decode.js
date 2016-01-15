@@ -14,7 +14,9 @@ module.exports.token = function(req, res, next) {
   		error_description = err.message;
   	  res.status(401).json({code : code, error : error, error_description : error_description});
   	} else {
-  	  res.status(200).json({token_information : decoded});
+      var token_information = jwt.decode(token, {complete: true});
+  	  res.status(200)
+        .json({ 'header'  : token_information.header, 'payload' : token_information.payload });
   	}
 
   });
