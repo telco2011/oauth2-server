@@ -1,8 +1,7 @@
 var model = module.exports;
-var jwt = require('jsonwebtoken');
-var error = require('../../node_modules/oauth2-server/lib/error');
+
 var db = require('./config-db');
-var fs = require('fs');
+var jwtutil = require('../JWT');
 
 // In-memory datastores:
 var oauthAccessTokens = db.oauthAccessTokens;
@@ -25,50 +24,8 @@ model.dump = function() {
  */
 model.generateToken = function (type, req, callback) {
 
-  var username = req.body.username;
-  var password = req.body.password;
-  var refresh_token = req.body.refresh_token;
-  var token;
-  var algorithm = 'RS256';
+  callback(false, jwtutil.generateJWT(type, req));
 
-  var privateKey = 'private.key';
-  try {
-    privateKey = fs.readFileSync('./private/server.key');
-  } catch(err) {
-    console.warn('No server.key founded. Use default.');
-  }
-
-  var cert = 'private.key';
-  var options;
-  try {
-    cert = fs.readFileSync('./private/hostname.pem');
-    options = { 
-      'algorithm': algorithm,
-      'headers': {
-        'alg'       : algorithm, 
-        'typ'       : 'JWT',
-        'jwtid'     : 'In-memory-' + type,
-        'expiresIn' : 60
-      }
-    };
-  } catch(err) {
-    console.warn('No hostname.pem founded. Use default.');
-  }
-
-  if (refresh_token) {
-
-    try {
-      var decoded = jwt.verify(refresh_token, cert, { algorithm: ['RS256'] });
-      username = decoded.username;
-    } catch(err) {
-      throw error('invalid_token', err.message, err);
-    }
-
-  }
-
-  token = jwt.sign({ 'username' : username }, privateKey, options);
-
-  callback(false, token);
 };
 
 /*

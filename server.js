@@ -16,9 +16,9 @@ app.use(bodyParser.json());
 
 app.oauth = oauthserver({
   model: memorystore,
-  accessTokenLifetime: 600,
-  refreshTokenLifetime: 600,
-  authCodeLifetime: 30,
+  accessTokenLifetime: 60,
+  refreshTokenLifetime: 120,
+  authCodeLifetime: 60,
   grants: ['password','refresh_token'],
   debug: true
 });
