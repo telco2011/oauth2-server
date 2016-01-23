@@ -21,6 +21,7 @@
     "node-uuid": "^1.4.7",
     "nodemon": "^1.8.1",
     "oauth2-server": "^2.2.1",
+    "showdown": "^1.3.0",
     "uid": "^0.0.2"
   },
   "devDependencies": {

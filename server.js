@@ -34,12 +34,8 @@ app.route('/oauth/info')
   .post(app.oauth.authorise(), routes.decode.token);
 
 app.route('/public')
-  .get(function (req, res) {
-    res.send('Public area');
-  })
-  .post(function (req, res) {
-    res.send('Public area');
-  });
+  .get(routes.information.mdpublic)
+  .post(routes.information.mdpublic);
 
 app.get('/', function (req, res) {
   res.render('index', { title: 'Oauth2 Example'});
