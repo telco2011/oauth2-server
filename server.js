@@ -45,7 +45,7 @@ app.get('/', function (req, res) {
   res.render('index', { title: 'Oauth2 Example'});
 });
 
-//app.post('/session', routes.session.create);
+app.post('/session', routes.session.create);
 app.get('/session', routes.session.show);
 
 // Error handling

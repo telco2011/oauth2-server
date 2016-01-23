@@ -3,17 +3,17 @@ var oauthAccessTokens = [],
   oauthRefreshTokens = [],
   oauthClients = [
     {
-      clientId : 'clientid',
-      clientSecret : 'clientsecret',
+      clientId : '1lccd2q8evsl0xvbbfx7',
+      clientSecret : 'J8eEfwKi6PSTVHtjWDcx7rYWhwt7K74u',
       redirectUri : ''
     }
   ],
   authorizedClientIds = {
     password: [
-      'clientid'
+      '1lccd2q8evsl0xvbbfx7'
     ],
     refresh_token: [
-      'clientid'
+      '1lccd2q8evsl0xvbbfx7'
     ]
   },
   users = [
