@@ -9,7 +9,7 @@ exports.mdpublic = function(req, res){
   
   try {
     text = fs.readFileSync('./README.md');
-    html      = converter.makeHtml(text.toString())
+    html = converter.makeHtml(text.toString())
     res.send(html);
   } catch(err) {
     console.warn('No README founded: ' + err);

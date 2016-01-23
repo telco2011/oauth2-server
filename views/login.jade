@@ -2,6 +2,10 @@ extends layout
 
 block content
   .container
+    #error
+      if error
+        .alert.alert-danger(role='alert')
+          strong #{error}
     form.form-signin(method='post', action='', role='form')
       h2.form-signin-heading Please Login
       .form-group
