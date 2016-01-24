@@ -26,8 +26,12 @@
     "winston": "^2.1.1"
   },
   "devDependencies": {
+    "api-designer": "^0.0.6",
     "chai": "^3.4.1",
     "chai-http": "^1.0.0",
-    "mocha": "^2.3.4"
+    "gulp": "^3.9.0",
+    "gulp-shell": "^0.5.2",
+    "mocha": "^2.3.4",
+    "raml2html": "^2.2.0"
   }
 }
