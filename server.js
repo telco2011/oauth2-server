@@ -26,26 +26,26 @@ app.oauth = oauthserver({
   debug: true
 });
 
-app.all('/oauth/token', app.oauth.grant());
+app.all('/oauth2/token', app.oauth.grant());
 
-app.route('/oauth/verify')
+app.route('/oauth2/authorise')
   .get(app.oauth.authorise(), routes.verify.token)
   .post(app.oauth.authorise(), routes.verify.token);
 
-app.route('/oauth/info')
+app.route('/oauth2/token-info')
   .get(app.oauth.authorise(), routes.decode.token)
   .post(app.oauth.authorise(), routes.decode.token);
 
-app.route('/oauth/public')
+app.route('/oauth2/info')
   .get(routes.information.mdpublic)
   .post(routes.information.mdpublic);
 
-app.get('/oauth', function (req, res) {
+app.get('/oauth2', function (req, res) {
   res.render('index', { title: 'Oauth2 Example', sessionUrl: '/oauth/session' });
 });
 
-app.post('/oauth/session', routes.session.create);
-app.get('/oauth/session', routes.session.show);
+app.post('/oauth2/session', routes.session.create);
+app.get('/oauth2/session', routes.session.show);
 
 // Error handling
 app.use(app.oauth.errorHandler());
