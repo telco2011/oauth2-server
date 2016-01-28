@@ -10,15 +10,15 @@ var algorithm = 'des-ede3-cbc';
 var password = 'd6F3Efeq';
 
 function encrypt(text){
-  var cipher = crypto.createCipher(algorithm,password)
-  var crypted = cipher.update(text,'utf8','base64')
+  var cipher = crypto.createCipher(algorithm,password);
+  var crypted = cipher.update(text,'utf8','base64');
   crypted += cipher.final('base64');
   return crypted;
 }
  
 function decrypt(text){
-  var decipher = crypto.createDecipher(algorithm,password)
-  var dec = decipher.update(text,'base64','utf8')
+  var decipher = crypto.createDecipher(algorithm,password);
+  var dec = decipher.update(text,'base64','utf8');
   dec += decipher.final('utf8');
   return dec;
 }

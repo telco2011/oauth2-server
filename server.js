@@ -11,7 +11,7 @@ var app = express();
 
 var memorystore = require('./model/db-store/in-memory.js');
 
-app.set('views', './views')
+app.set('views', './views');
 app.set('view engine', 'jade');
 app.use('/static', express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: true }));
