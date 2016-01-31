@@ -17,13 +17,33 @@ types:
       code: string
       error: string
       error_description: string
-  ResponseType:
+  TokenInfoResponseType:
     type: object
     properties:
       token_type: string
       access_token: string
       expires_in: integer
       refresh_token: string
+  TokenResponseType:
+      type: object
+      properties:
+        header:
+          type: object
+          properties:
+            typ: string
+            alg: string
+        payload:
+          type: object
+          properties:
+            username: string
+            jti: string
+            nbf: number
+            exp: number
+            iat: number
+  ValidAccessResponseType:
+    type: object
+    properties:
+      verified_token: boolean
 /token:
   description: Get access token
   securedBy:
@@ -44,8 +64,51 @@ types:
       200:
         body:
           application/json:
-            type: ResponseType
+            type: TokenInfoResponseType
       4xx:
         body:
           application/json:
             type: ErrorType
+/authorise:
+   description: Get access token
+   securedBy:
+     basic
+   post:
+     body:
+       application/x-www-form-urlencoded:
+         properties:
+           access_token: string
+     responses:
+       200:
+         body:
+           application/json:
+             type: ValidAccessResponseType
+       4xx:
+         body:
+           application/json:
+             type: ErrorType
+/token-info:
+   description: Get access token
+   securedBy:
+     basic
+   post:
+     headers:
+       Authorization:
+         description: You should include your client credentials in the Authorization header ("Basic " + client_id:client_secret base64'd)
+         type: string
+         example: Basic MWxjY2QycThldnNsMHh2YmJmeDc6SjhlRWZ3S2k2UFNUVkh0aldEY3g3cllXaHd0N0s3NHU=
+     body:
+       application/x-www-form-urlencoded:
+         properties:
+           grant_type: string
+           username: string
+           password: string
+     responses:
+       200:
+         body:
+           application/json:
+             type: TokenResponseType
+       4xx:
+         body:
+           application/json:
+             type: ErrorType
