@@ -1,5 +1,5 @@
 var jwt = require('jsonwebtoken');
-var jwtutil = require('../model/JWT');
+var jwtutil = require('../../../model/JWT');
 
 module.exports.token = function(req, res, next) {
 
@@ -11,9 +11,7 @@ module.exports.token = function(req, res, next) {
   	if (err) {
   	  res.status(401).json({ 'code': 401, 'error': 'invalid_token', 'error_description': err.message });
   	} else {
-      var token_information = jwt.decode(token, {complete: true});
-  	  res.status(200)
-        .json({ 'header'  : token_information.header, 'payload' : token_information.payload });
+      res.status(200).json({verified_token : true});
   	}
 
   });

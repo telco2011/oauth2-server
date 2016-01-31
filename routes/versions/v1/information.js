@@ -6,9 +6,9 @@ var showdown  = require('showdown'),
 var fs = require('fs');
 
 exports.mdpublic = function(req, res){
-  
+
   try {
-    text = fs.readFileSync('./README.md');
+    text = fs.readFileSync('../../README.md');
     html = converter.makeHtml(text.toString())
     res.send(html);
   } catch(err) {
