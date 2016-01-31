@@ -4,3 +4,19 @@ block content
   h1= title
   p Welcome to #{title}
   p <a href=#{sessionUrl}>Sign in &rarr;</a>
+  .panel.panel-info
+      .panel-heading Users
+      table.table
+        thead
+          tr
+            th #
+            th First Name
+            th Last Name
+            th Username
+        tbody
+          each item, i in users
+            tr
+              th(scope='row')= i+1
+              td= item.username
+              td ClientId
+              td ClientSecret

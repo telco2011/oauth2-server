@@ -18,7 +18,7 @@ var oauthAccessTokens = [],
   },
   users = [
     {
-      id : 1,
+      id : 'user',
       username: 'user',
       password: 'password'
     }
