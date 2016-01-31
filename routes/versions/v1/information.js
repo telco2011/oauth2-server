@@ -3,6 +3,10 @@ var showdown  = require('showdown'),
     text      = '#hello, markdown!',
     html      = converter.makeHtml(text);
 
+
+var utils = require('../../../utils');
+var logger = utils.logger.getLogger();
+
 var fs = require('fs');
 
 exports.mdpublic = function(req, res){
@@ -12,7 +16,7 @@ exports.mdpublic = function(req, res){
     html = converter.makeHtml(text.toString())
     res.send(html);
   } catch(err) {
-    console.warn('No README founded: ' + err);
+    logger.warn('No README founded: ' + err);
     res.send(err);
   }
 

@@ -1,3 +1,7 @@
+var db = require('../model/db-store/config-db');
+var users = db.users;
+
+
 var express = require('express');
 //https://github.com/thomseddon/node-oauth2-server
 var oauthserver = require('oauth2-server');
@@ -20,7 +24,7 @@ defaultRoute.oauth = oauthserver({
 
 defaultRoute.get('/', function (req, res) {
   logger.debug('Access to index.');
-  res.render('index', { title: 'Oauth2 Example', sessionUrl: '/oauth2/session' });
+  res.render('index', { title: 'Oauth2 Example', users: users, sessionUrl: '/oauth2/session' });
 });
 
 defaultRoute.post('/session', session.create);

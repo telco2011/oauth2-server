@@ -2,6 +2,8 @@
 //https://github.com/auth0/node-jsonwebtoken
 var jwt = require('jsonwebtoken');
 var error = require('../node_modules/oauth2-server/lib/error');
+var utils = require('../utils');
+var logger = utils.logger.getLogger();
 var fs = require('fs');
 var uuid = require('node-uuid');
 var moment = require('moment');
@@ -43,7 +45,7 @@ module.exports.generateJWT = function (type, req) {
   var expired   = getDateTime(expiredDate);
 
   if(privateKey === 'private.key') {
-  	console.warn('Use String private key to sign');
+  	logger.warn('Use String private key to sign');
   	token = jwt.sign({ 'username' : username }, privateKey);
   } else {
   	token = jwt.sign({
@@ -68,7 +70,7 @@ var getPrivateKey = function () {
     privateKey = fs.readFileSync('./private/server.key');
   } catch(err) {
   	privateKey = 'private.key';
-    console.warn('No key founded. Use default.');
+    logger.warn('No key founded. Use default.');
   }
 
   return privateKey;
@@ -82,7 +84,7 @@ var getCert = function () {
     cert = fs.readFileSync('./private/hostname.pem');
   } catch(err) {
   	cert = 'private.key'
-    console.warn('No pem founded. Use default.');
+    logger.warn('No pem founded. Use default.');
   }
 
   return cert;

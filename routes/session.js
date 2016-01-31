@@ -38,7 +38,7 @@ module.exports.create = function(req, res, next) {
     var client_secret = encrypt(client_id, psw);
 
     users.unshift({
-      id: 2,
+      id: user,
       username: user,
       password: psw
     });
@@ -54,9 +54,9 @@ module.exports.create = function(req, res, next) {
 
     logger.debug(db);
 
-    res.status(200).json({ 'client_id': client_id, 'client_secret': client_secret });
+    res.render('index', { title: 'Oauth2 Example', users: users, sessionUrl: '/oauth2/session' });
   }
-  
+
 };
 
 module.exports.show = function(req, res, next) {
@@ -69,7 +69,7 @@ function encrypt(text, psw){
   crypted += cipher.final('base64');
   return crypted;
 }
- 
+
 function decrypt(text, psw){
   var decipher = crypto.createDecipher(algorithm,psw);
   var dec = decipher.update(text,'base64','utf8');
