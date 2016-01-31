@@ -1,6 +1,7 @@
 var model = module.exports;
-var jwt = require('jsonwebtoken');
+
 var db = require('./config-db');
+var jwtutil = require('../JWT');
 
 // In-memory datastores:
 var oauthAccessTokens = db.oauthAccessTokens;
@@ -23,27 +24,8 @@ model.dump = function() {
  */
 model.generateToken = function (type, req, callback) {
 
-  var username = req.body.username;
-  var password = req.body.password;
-  var refresh_token = req.body.refresh_token;
+  callback(false, jwtutil.generateJWT(type, req));
 
-  if (refresh_token) {
-    var decoded = jwt.decode(refresh_token, {complete: true});
-
-    username = decoded.payload.username;
-    password = decoded.payload.password;
-  }
-
-  var token = jwt.sign(
-  { 
-    username: username
-  }, 
-  'private.key',
-  {
-    headers: {type:type}
-  });
-
-  callback(false, token);
 };
 
 /*

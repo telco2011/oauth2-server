@@ -1,0 +1,178 @@
+{
+	"id": "6c6557cf-72c4-0060-88d3-7cc459dce6db",
+	"name": "oauth",
+	"description": "",
+	"order": [
+		"2cd2edbf-6e66-953c-a627-37d00916facf",
+		"35ee4a39-8954-0e83-3412-4fba2c3f5301",
+		"0f3cf608-eba0-426f-2685-fd6dbd6ebefc",
+		"ee5e60af-a6c6-e7ad-0837-d15ff3142431",
+		"fc9abd01-c1ec-0f67-fd9c-a544e0fd082d",
+		"6171098e-09d3-ed4b-7aed-e11e10b5e9b5"
+	],
+	"folders": [],
+	"timestamp": 1450085184296,
+	"owner": 0,
+	"public": false,
+	"hasRequests": true,
+	"requests": [
+		{
+			"id": "0f3cf608-eba0-426f-2685-fd6dbd6ebefc",
+			"headers": "",
+			"url": "http://{{OAUTH2_SERVER_IP}}:{{OAUTH2_SERVER_PORT}}/oauth/verify",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "access_token",
+					"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsInR5cGUiOiJhY2Nlc3NUb2tlbiJ9.eyJ1c2VybmFtZSI6InVzZXIiLCJpYXQiOjE0NTI3MDM3NjR9.sulqzksswMBZCAcGse0daAp_erjjXLp9rmD7Sa01P3k",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1452705397302,
+			"name": "Access Secret Area",
+			"description": "",
+			"collectionId": "6c6557cf-72c4-0060-88d3-7cc459dce6db",
+			"responses": []
+		},
+		{
+			"id": "2cd2edbf-6e66-953c-a627-37d00916facf",
+			"headers": "",
+			"url": "http://{{OAUTH2_SERVER_IP}}:{{OAUTH2_SERVER_PORT}}/public",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "GET",
+			"data": [],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1452702293578,
+			"name": "Access Public Area",
+			"description": "",
+			"collectionId": "6c6557cf-72c4-0060-88d3-7cc459dce6db"
+		},
+		{
+			"id": "35ee4a39-8954-0e83-3412-4fba2c3f5301",
+			"headers": "",
+			"url": "http://{{OAUTH2_SERVER_IP}}:{{OAUTH2_SERVER_PORT}}/oauth/verify?access_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsInR5cGUiOiJhY2Nlc3NUb2tlbiJ9.eyJ1c2VybmFtZSI6InVzZXIiLCJpYXQiOjE0NTI3MDU0MTF9.9ctGklvFEeBrh27quB08tCKnAqmxoY4_YBB-S3ADwM4",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "GET",
+			"data": [],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1452705431505,
+			"name": "Access Secret Area",
+			"description": "",
+			"collectionId": "6c6557cf-72c4-0060-88d3-7cc459dce6db"
+		},
+		{
+			"id": "6171098e-09d3-ed4b-7aed-e11e10b5e9b5",
+			"headers": "",
+			"url": "http://{{OAUTH2_SERVER_IP}}:{{OAUTH2_SERVER_PORT}}/oauth/info",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "access_token",
+					"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsInR5cGUiOiJhY2Nlc3NUb2tlbiJ9.eyJ1c2VybmFtZSI6InVzZXIiLCJpYXQiOjE0NTI3MDM3NjR9.sulqzksswMBZCAcGse0daAp_erjjXLp9rmD7Sa01P3k",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1452706768756,
+			"name": "Get Token Info",
+			"description": "",
+			"collectionId": "6c6557cf-72c4-0060-88d3-7cc459dce6db",
+			"responses": []
+		},
+		{
+			"id": "ee5e60af-a6c6-e7ad-0837-d15ff3142431",
+			"headers": "Authorization: Basic Y2xpZW50aWQ6Y2xpZW50c2VjcmV0\n",
+			"url": "http://{{OAUTH2_SERVER_IP}}:{{OAUTH2_SERVER_PORT}}/oauth/token",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "grant_type",
+					"value": "password",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "username",
+					"value": "user",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "password",
+					"value": "password",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1452702344028,
+			"name": "Get access_token",
+			"description": "",
+			"collectionId": "6c6557cf-72c4-0060-88d3-7cc459dce6db",
+			"responses": []
+		},
+		{
+			"id": "fc9abd01-c1ec-0f67-fd9c-a544e0fd082d",
+			"headers": "Authorization: Basic Y2xpZW50aWQ6Y2xpZW50c2VjcmV0\n",
+			"url": "http://{{OAUTH2_SERVER_IP}}:{{OAUTH2_SERVER_PORT}}/oauth/token",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "grant_type",
+					"value": "refresh_token",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "refresh_token",
+					"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsInR5cGUiOiJyZWZyZXNoVG9rZW4ifQ.eyJ1c2VybmFtZSI6InVzZXIiLCJpYXQiOjE0NTI3MDE3NjV9.MY2f0CV5L2zVaEV1oo1vNv0TCxxOKXzMqsiUJwrXMSQ",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1452702350235,
+			"name": "Get access_token with refresh_token",
+			"description": "",
+			"collectionId": "6c6557cf-72c4-0060-88d3-7cc459dce6db",
+			"responses": []
+		}
+	]
+}
