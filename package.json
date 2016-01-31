@@ -30,6 +30,7 @@
     "chai": "^3.4.1",
     "chai-http": "^1.0.0",
     "gulp": "^3.9.0",
+    "gulp-mocha": "^2.2.0",
     "gulp-shell": "^0.5.2",
     "mocha": "^2.3.4",
     "raml2html": "^2.2.0"
